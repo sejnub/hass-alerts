@@ -23,18 +23,19 @@ script.change_alert(alert_id, operation): result
 
 - each alert `alert.klaus` gets one `input_boolean.alert_klaus`
 
-- script.change_alert(klaus, activate)   -> call `input_boolean.turn_on`  on the target `input_boolean.alert_klaus`
-- script.change_alert(klaus, deactivate) -> call `input_boolean.turn_off` on the target `input_boolean.alert_klaus`
+|                                        |     |                               |               |                             |
+| -------------------------------------- | --- | ----------------------------- | ------------- | --------------------------- |
+| script.change_alert(klaus, activate)   | ->  | call `input_boolean.turn_on`  | on the target | `input_boolean.alert_klaus` |
+| script.change_alert(klaus, deactivate) | ->  | call `input_boolean.turn_off` | on the target | `input_boolean.alert_klaus` |
+| script.change_alert(klaus, ack)        | ->  | call `alert.turn_off`         | on the target | `alert.klaus`               |
+| script.change_alert(klaus, unack)      | ->  | call `alert.turn_on`          | on the target | `alert.klaus`               |
 
-- script.change_alert(klaus, ack)        -> call `alert.turn_off`         on the target `alert.klaus`
-- script.change_alert(klaus, unack)      -> call `alert.turn_on`          on the target `alert.klaus`
 
 
 
+## 3. Alert Integration
 
-## 4. Alert Integration
-
-### 4.1. Zustandsdiagramm
+### 3.1. Zustandsdiagramm
 
 ```mermaid
 
@@ -83,7 +84,7 @@ stateDiagram-v2
 
 ```
 
-### 4.2. Eigenschaften der Alert-Entität
+### 3.2. Eigenschaften der Alert-Entität
 
 State ()
 
@@ -98,7 +99,7 @@ State ()
 | Attribut `acknowledged`  | Gibt an, ob quittiert wurde              | `false`                      | `true` |
 |                          |                                          |                              |
 
-### 5.1. Beispiel-Konfiguration (configuration.yaml)
+### 3.3. Beispiel-Konfiguration (configuration.yaml)
 
 ```yaml
 alert:
@@ -116,7 +117,7 @@ alert:
     acknowledge: true
 ```
 
-### 5.2. UI-Button zum Quittieren (Lovelace)
+### 3.4. UI-Button zum Quittieren (Lovelace)
 
 ```yaml
 type: button
@@ -129,7 +130,7 @@ tap_action:
     entity_id: alert.wasser_leck
 ```
 
-## 3. Alert2 Integration
+## 4. Alert2 Integration
 
 | Service                     | Meaning                                                                                                                                                                       |
 | --------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -144,4 +145,24 @@ tap_action:
 | alert2.notification_control | adjust the notification settings.                                                                                                                                             |
 |                             |                                                                                                                                                                               |
 
+### 4.1. https://community.home-assistant.io/t/alert2-a-new-alerting-component/654597/201
+
+
+First message: {{friendly_name}}: {{message}}
+Reminder message: {{friendly_name}}: for {{min}} minutes
+Last message: {{done_message}}
+
+Hi
+
+I came to your solution because in my installation the standard alert integration seems buggy and only sent the first notification but not the “reminders”
+
+Now i invested in moving everything to alert2 to now find out that i can not customize the reminder messages. Did i get that right?
+
+I am living in germany and use the notifications mainly for voice. The standard reminder message is not very useful for us especially those members here who dont speak english.
+
+Is there a way to customize that messages and if not: Is there a chance you would consider adding that?
+
+I am very sorry if there already was a discussion about this topic and i missed it.
+
+Thank you very much for your work
 ETX
