@@ -31,8 +31,6 @@ script.change_alert(alert_id, operation): result
 | script.change_alert(klaus, unack)      | ->  | call `alert.turn_on`          | on the target | `alert.klaus`               |
 
 
-
-
 ## 3. Alert Integration
 
 ### 3.1. Zustandsdiagramm
@@ -147,10 +145,43 @@ tap_action:
 
 ### 4.1. https://community.home-assistant.io/t/alert2-a-new-alerting-component/654597/201
 
+Notifiers:
 
-First message: {{friendly_name}}: {{message}}
-Reminder message: {{friendly_name}}: for {{min}} minutes
-Last message: {{done_message}}
+- `notifier`
+- `summary_notifier`
+
+Messages
+
+|                  | Content                                   | Note                        |
+| ---------------- | ----------------------------------------- | --------------------------- |
+| First message    | {{friendly_name}}: {{message}}            |                             |
+| Reminder message | {{friendly_name}}: on for {{min}} minutes |                             |
+| Last message     | {{friendly_name}}: {{done_message}}       | if {{annotate_message}}     |
+| Last message     | {{done_message}}                          | if not {{annotate_message}} |
+| Summary          |                                           |                             |
+|                  |                                           |                             |
+
+
+#### LLM
+
+I am writing a Home Assistant script
+I have an incoming field with name `message` this can have the following forms where the numbers can be any one, two or three digit numbers
+
+ "<This is some text without colons>: on for 53 s"
+ "<This is some text without colons>: on for 4 min"
+ "<This is some text without colons>: on for 12 h"
+ "<This is some text without colons>: on for 12 d"
+
+
+If `message contains no colon do not make any replacements`
+If `message contains one colon (like in the given texts) make the folloowing replacement`: 
+- replace "on for <number> s with "seit <number> Sekunden
+- replace "on for <number> min with "seit <number> Minuten
+- replace "on for <number> h with "seit <number> Stunden
+- replace "on for <number> d with "seit <number> Tagen
+
+
+####
 
 Hi
 
